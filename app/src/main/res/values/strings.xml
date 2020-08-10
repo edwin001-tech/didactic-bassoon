@@ -8,4 +8,5 @@
     <string name="login_text">Login</string>
     <string name="or_text">Or</string>
     <string name="create_text">Craete Account</string>
+    <string name="username_hint">Username</string>
 </resources>
