@@ -1,8 +1,5 @@
 package com.example.self;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +9,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.self.util.JournalApi;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -139,10 +140,10 @@ public class CreateAccountActivity extends AppCompatActivity {
                                                                     progressBar.setVisibility(View.INVISIBLE);
                                                                     String name = task.getResult()
                                                                             .getString("username");
-//
-//                                                                    JournalApi journalApi = JournalApi.getInstance(); //Global API
-//                                                                    journalApi.setUserId(currentUserId);
-//                                                                    journalApi.setUsername(name);
+
+                                                                    JournalApi journalApi = JournalApi.getInstance(); //Global API
+                                                                    journalApi.setUserId(currentUserId);
+                                                                    journalApi.setUsername(name);
 
                                                                     Intent intent = new Intent(CreateAccountActivity.this,
                                                                             PostJournalActivity.class);
