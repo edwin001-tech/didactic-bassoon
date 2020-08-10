@@ -3,4 +3,9 @@
     <string name="title_text">Self. Gratitude. Journal</string>
     <string name="greateful_text">What are you grateful for today?</string>
     <string name="get_started_text">Get Started</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login_text">Login</string>
+    <string name="or_text">Or</string>
+    <string name="create_text">Craete Account</string>
 </resources>
