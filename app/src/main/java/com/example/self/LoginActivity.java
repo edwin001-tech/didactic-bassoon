@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         loginButton = findViewById(R.id.email_sign_in_button);
         createAcctButton = findViewById(R.id.create_acct_button_login);
+        progressBar = findViewById(R.id.login_progress);
 
         createAcctButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +80,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginEmailPasswordUser(String email, String pwd) {
+        progressBar.setVisibility(View.VISIBLE);
+
         if (!TextUtils.isEmpty(email)
                 && !TextUtils.isEmpty(pwd)) {
             firebaseAuth.signInWithEmailAndPassword(email, pwd)
