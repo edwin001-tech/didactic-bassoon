@@ -14,4 +14,5 @@
     <string name="save_button">Save</string>
     <string name="menu_title">Add Thoughts</string>
     <string name="signout">Signout</string>
+    <string name="no_thoughts_hint">Write the journal entry by clicking the \'+\' icon</string>
 </resources>
