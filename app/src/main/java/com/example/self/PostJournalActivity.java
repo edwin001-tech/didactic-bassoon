@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.self.model.Journal;
 import com.example.self.util.JournalApi;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -62,6 +64,7 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_post_journal);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference();
         progressBar = findViewById(R.id.post_progressBar);
         titleEditText = findViewById(R.id.post_title_et);
         thoughtsEditText = findViewById(R.id.post_description_et);
@@ -119,7 +122,7 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
         final String title = titleEditText.getText().toString().trim();
         final String thoughts = thoughtsEditText.getText().toString().trim();
 
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
 
         if (!TextUtils.isEmpty(title) &&
                 !TextUtils.isEmpty(thoughts)
@@ -191,7 +194,8 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
 
         }
     }
-    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
