@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background=""
+
     tools:context=".PostJournalActivity">
 
     <ImageView
@@ -70,7 +70,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/input_outline"
+
         android:ems="10"
         android:hint="@string/title_hint"
         android:inputType="textPersonName"
@@ -86,7 +86,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/input_outline"
+
         android:ems="10"
         android:hint="@string/thoughts"
         android:inputType="textMultiLine"
