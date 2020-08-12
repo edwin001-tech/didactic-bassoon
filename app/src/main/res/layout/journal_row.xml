@@ -8,6 +8,35 @@
     app:cardUseCompatPadding="true"
     android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:elevation="10dp"
+        android:background="@color/centerGColor"
+        android:alpha="0.8"
+        android:gravity="end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/journal_row_username"
+            android:text="Edwin"
+            android:padding="3dp"
+            android:layout_weight="1"
+            android:textSize="17sp"
+            android:gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/journal_row_share_button"
+            android:src="@android:drawable/ic_menu_share"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:orientation="vertical"
