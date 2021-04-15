@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
@@ -92,50 +94,58 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            assert user != null;
-                            final String currentUserId = user.getUid();
+                            if (user != null) {
+                                final String currentUserId = user.getUid();
 
-                            collectionReference
-                                    .whereEqualTo("userId", currentUserId)
-                                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
-                                                            @Nullable FirebaseFirestoreException e) {
+                                collectionReference
+                                        .whereEqualTo("userId", currentUserId)
+                                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                                                 @Override
+                                                                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
+                                                                                     @Nullable FirebaseFirestoreException e) {
 
-                                            if (e != null) {
-                                            }
-                                            assert queryDocumentSnapshots != null;
-                                            if (!queryDocumentSnapshots.isEmpty()) {
+                                                                     if (e != null) {
+                                                                     }
+                                                                     assert queryDocumentSnapshots != null;
+                                                                     if (!queryDocumentSnapshots.isEmpty()) {
 
-                                                progressBar.setVisibility(View.INVISIBLE);
-                                                for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
-                                                    JournalApi journalApi = JournalApi.getInstance();
-                                                    journalApi.setUsername(snapshot.getString("username"));
-                                                    journalApi.setUserId(snapshot.getString("userId"));
+                                                                         progressBar.setVisibility(View.INVISIBLE);
+                                                                         for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
+                                                                             JournalApi journalApi = JournalApi.getInstance();
+                                                                             journalApi.setUsername(snapshot.getString("username"));
+                                                                             journalApi.setUserId(snapshot.getString("userId"));
 
-                                                    //Go to ListActivity
-                                                    startActivity(new Intent(LoginActivity.this,
-                                                            PostJournalActivity.class));
-
-
-                                                }
+                                                                             //Go to ListActivity
+                                                                             startActivity(new Intent(LoginActivity.this,
+                                                                                     PostJournalActivity.class));
 
 
-
-                                            }
-
-                                        }
-                                    });
+                                                                         }
+                                                                     }
 
 
+                                                                 }
 
 
+                                                             }
+
+                                        );
+
+
+                            }
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressBar.setVisibility(View.INVISIBLE);
+                            if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                                notifyUser("Invalid password");
+                            } else if (e instanceof FirebaseAuthInvalidUserException) {
+                                notifyUser("Incorrect email address");
+                            } else {
+                                notifyUser(e.getLocalizedMessage());
+                            }
 
                         }
                     });
@@ -150,5 +160,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG)
                     .show();
         }
+    }
+
+    private void notifyUser(String invalid_password) {
     }
 }
