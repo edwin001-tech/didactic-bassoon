@@ -1,6 +1,8 @@
 package com.example.self.ui;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +20,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecyclerAdapter.ViewHolder>{
     private Context context;
     private List<Journal> journalList;
+    private Uri imageUri;
 
     public JournalRecyclerAdapter(Context context, List<Journal> journalList) {
         this.context = context;
@@ -95,6 +100,16 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
                 @Override
                 public void onClick(View v) {
                    // context.startActivity();
+                    String text = "Look at my awesome picture";
+                    Uri pictureUri = Uri.parse("file://my_picture");
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                    shareIntent.setType("image/*");
+                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    context.startActivity(Intent.createChooser(shareIntent, "Share using"));
+
                 }
             });
 
